@@ -39,40 +39,39 @@ public class ApplicationCommand {
 
     @ShellMethod("Create new user with supplied email")
     public void createUser(@ShellOption({"-E", "--email"}) String email) {
-        logger.trace("Start creating the user for email: " + email);
-        Optional<User> existingUser = userRepository.findByEmail(email);
-        if (existingUser.isPresent()) {
-            shellHelper.printError(String.format("User with email='%s' already exists --> ABORTING", email));
-            return;
-        }
-
-        User user = new User();
-        user.setEmail(email);
-
-        do {
-            String name = inputReader.prompt("Name");
-            if (StringUtils.hasText(name)) {
-                user.setName(name);
-            } else {
-                shellHelper.printWarning("User's name should not be empty!");
-            }
-        } while (user.getName() == null);
-
-        do {
-            String password = inputReader.prompt("Password", "secret", false);
-            if (StringUtils.hasText(password)) {
-                user.setPassword(passwordEncoder.encode(password));
-            } else {
-                shellHelper.printWarning("Password should not be empty!");
-            }
-        } while (user.getPassword() == null);
-
-        shellHelper.printInfo("\nCreating new user:");
-        userRepository.save(user);
-        shellHelper.printSuccess("Created user with id=" + user.getId());
-        logger.info("User created successfully.");
         try {
+            logger.trace("Start creating the user for email: " + email);
+            Optional<User> existingUser = userRepository.findByEmail(email);
+            if (existingUser.isPresent()) {
+                shellHelper.printError(String.format("User with email='%s' already exists --> ABORTING", email));
+                return;
+            }
 
+            User user = new User();
+            user.setEmail(email);
+
+            do {
+                String name = inputReader.prompt("Name");
+                if (StringUtils.hasText(name)) {
+                    user.setName(name);
+                } else {
+                    shellHelper.printWarning("User's name should not be empty!");
+                }
+            } while (user.getName() == null);
+
+            do {
+                String password = inputReader.prompt("Password", "secret", false);
+                if (StringUtils.hasText(password)) {
+                    user.setPassword(passwordEncoder.encode(password));
+                } else {
+                    shellHelper.printWarning("Password should not be empty!");
+                }
+            } while (user.getPassword() == null);
+
+            shellHelper.printInfo("\nCreating new user:");
+            userRepository.save(user);
+            shellHelper.printSuccess("Created user with id=" + user.getId());
+            logger.info("User created successfully.");
         } catch (Exception e) {
             logger.error("Error while creating an user. Message: " + e.getMessage());
             e.printStackTrace();
