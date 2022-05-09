@@ -2,3 +2,17 @@
 1651905764929:sum 2 3
 1651935877855:help
 1651936945287:exit
+1652079687114:help
+1652079876017:create-user
+1652079953141:create-user hkraclh@gmail.com
+1652079993848:Hasitha
+1652086481560:help
+1652086494713:create-user hkraclh@gmail.com
+1652086499660:Hasitha
+1652112130724:help
+1652112147838:help create-user
+1652112183938:create-user -U hkraclh@gmail.com
+1652112209388:exit
+1652112408879:create-user hkraclh@gmail.com
+1652112411812:Hasitha
+1652112421425:create-user hkraclh@gmail.com
