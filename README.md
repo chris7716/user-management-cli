@@ -17,7 +17,7 @@ It is written using the following stack.
 
 ## To save user
 
-`shell:>create-user`
+`shell:>create-user -E test@abc.com`
 
 ## To list users
 
